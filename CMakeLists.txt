@@ -27,7 +27,8 @@ install(FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"
   DESTINATION include
   )
 
-enable_testing()
+include(CTest)
+
 add_test(NAME Runs COMMAND Tutorial 25)
 
 add_test(NAME Usage COMMAND Tutorial)
