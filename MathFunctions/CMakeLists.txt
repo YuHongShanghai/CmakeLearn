@@ -24,13 +24,22 @@ endif()
 target_compile_definitions(MathFunctions PRIVATE "EXPORTING_MYMATH")
 
 target_include_directories(MathFunctions
-                        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
-                        )
+                           INTERFACE
+                            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                            $<INSTALL_INTERFACE:include>
+                           )
 target_link_libraries(MathFunctions PUBLIC tutorial_compiler_flags)
 
 set(installable_libs MathFunctions tutorial_compiler_flags)
 if(TARGET SqrtLibrary)
   list(APPEND installable_libs SqrtLibrary)
 endif()
-install(TARGETS ${installable_libs} DESTINATION lib)
+install(TARGETS ${installable_libs}
+        EXPORT MathFunctionsTargets
+        DESTINATION lib)
 install(FILES MathFunctions.h DESTINATION include)
+
+install(EXPORT MathFunctionsTargets
+  FILE MathFunctionsTargets.cmake
+  DESTINATION lib/cmake/MathFunctions
+)
