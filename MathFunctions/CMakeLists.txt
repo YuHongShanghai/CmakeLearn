@@ -10,11 +10,19 @@ if (USE_MYMATH)
               mysqrt.cxx
               ${CMAKE_CURRENT_BINARY_DIR}/Table.h
               )
+    set_target_properties(SqrtLibrary PROPERTIES
+            POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS}
+            )
     target_include_directories(SqrtLibrary PRIVATE
                             ${CMAKE_CURRENT_BINARY_DIR}
                             )
     target_link_libraries(MathFunctions PRIVATE SqrtLibrary tutorial_compiler_flags)
 endif()
+
+# define the symbol stating we are using the declspec(dllexport) when
+# building on windows
+target_compile_definitions(MathFunctions PRIVATE "EXPORTING_MYMATH")
+
 target_include_directories(MathFunctions
                         INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
                         )
