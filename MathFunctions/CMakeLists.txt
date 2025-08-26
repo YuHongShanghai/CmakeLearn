@@ -7,8 +7,9 @@ if (USE_MYMATH)
     add_library(SqrtLibrary STATIC
               mysqrt.cxx
               )
-    target_link_libraries(MathFunctions PRIVATE SqrtLibrary)
+    target_link_libraries(MathFunctions PRIVATE SqrtLibrary tutorial_compiler_flags)
 endif()
 target_include_directories(MathFunctions
                         INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
                         )
+target_link_libraries(MathFunctions PUBLIC tutorial_compiler_flags)
