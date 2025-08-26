@@ -1,20 +1,6 @@
-add_library(MathFunctions MathFunctions.cxx)
+include(MakeTable.cmake)
 
-include(CheckCXXSourceCompiles)
-check_cxx_source_compiles("
-#include <cmath>
-int main() {
-    std::log(1.0);
-    return 0;
-}
-" HAVE_LOG)
-check_cxx_source_compiles("
-#include <cmath>
-int main() {
-    std::exp(1.0);
-    return 0;
-}
-" HAVE_EXP)
+add_library(MathFunctions MathFunctions.cxx)
 
 option(USE_MYMATH "Use tutorial provided math implementation" ON)
 
@@ -22,13 +8,12 @@ if (USE_MYMATH)
     target_compile_definitions(MathFunctions PRIVATE "USE_MYMATH")
     add_library(SqrtLibrary STATIC
               mysqrt.cxx
+              ${CMAKE_CURRENT_BINARY_DIR}/Table.h
               )
+    target_include_directories(SqrtLibrary PRIVATE
+                            ${CMAKE_CURRENT_BINARY_DIR}
+                            )
     target_link_libraries(MathFunctions PRIVATE SqrtLibrary tutorial_compiler_flags)
-    if(HAVE_LOG AND HAVE_EXP)
-        target_compile_definitions(SqrtLibrary
-                                PRIVATE "HAVE_LOG" "HAVE_EXP"
-                                )
-    endif()
 endif()
 target_include_directories(MathFunctions
                         INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
