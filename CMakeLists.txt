@@ -11,6 +11,8 @@ option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 set(gcc_like_cxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
 set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
 
+set(CMAKE_DEBUG_POSTFIX d)
+
 add_library(tutorial_compiler_flags INTERFACE)
 target_compile_options(tutorial_compiler_flags INTERFACE
   "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
@@ -22,6 +24,7 @@ configure_file(TutorialConfig.h.in TutorialConfig.h)
 add_subdirectory(MathFunctions)
 
 add_executable(Tutorial tutorial.cxx)
+set_target_properties(Tutorial PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
 target_include_directories(Tutorial PUBLIC
                            "${PROJECT_BINARY_DIR}"

@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/yuhong119hellobike.com/Desktop/CmakeLearn/release/cmake_install.cmake",
+		"/Users/yuhong119hellobike.com/Desktop/CmakeLearn/release/MathFunctions/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

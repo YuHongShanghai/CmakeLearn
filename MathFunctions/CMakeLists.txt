@@ -2,6 +2,9 @@ include(MakeTable.cmake)
 
 add_library(MathFunctions MathFunctions.cxx)
 
+set_property(TARGET MathFunctions PROPERTY VERSION "1.0.0")
+set_property(TARGET MathFunctions PROPERTY SOVERSION "1")
+
 option(USE_MYMATH "Use tutorial provided math implementation" ON)
 
 if (USE_MYMATH)
