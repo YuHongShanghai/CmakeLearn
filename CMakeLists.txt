@@ -13,6 +13,5 @@ add_executable(Tutorial tutorial.cxx)
 
 target_include_directories(Tutorial PUBLIC
                            "${PROJECT_BINARY_DIR}"
-                           "${PROJECT_SOURCE_DIR}/MathFunctions"
                            )
 target_link_libraries(Tutorial PUBLIC MathFunctions)
